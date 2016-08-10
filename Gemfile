@@ -19,6 +19,7 @@ group :development, :test do
   gem 'guard', '2.13.0'
   gem 'guard-minitest', '2.4.4'
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
+  gem 'awesome_print', '~> 1.7'
 end
 
 group :development do
