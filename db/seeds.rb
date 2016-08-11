@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Team.create!(team_name: 'Dubs', participants: ['Curry', 'Thomspson', 'Bogut', 'Green', 'Iggy'])
 Team.create!(team_name: 'Shield', participants: ['Mackey', 'Shane', 'Lem', 'Ronnie'])
+Team.create!(team_name: 'Fractured', participants: ['Rocky', 'Bullwinkle', 'Boris', 'Natasha', 'Sherman', 'Peabody' ])
