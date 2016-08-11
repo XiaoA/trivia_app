@@ -18,6 +18,5 @@ class JoinTeamTest < ActionDispatch::IntegrationTest
    end
    @team_one.reload
    assert_equal participants += 1, @team_one.participants.count
-   byebug
  end
 end
