@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.2'
 gem 'pundit', '~> 1.1'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 
 
 group :development, :test do
