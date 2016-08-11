@@ -1,0 +1,12 @@
+<h1>Temp Page For Teams</h1>
+<div id="team-listings">
+  <section id="teams">
+    <% @teams.each do |team|%>
+      <%= team.team_name %>: <br>
+      <%= team.participants.join(' ') %> <br>
+      <div id=<%= dom_id(team) %>>
+        <%= link_to 'Join Team', new_team_path %> <br>
+      </div>
+    <% end %>
+  </section>
+</div>
