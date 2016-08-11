@@ -13,12 +13,13 @@
         <div class="col-md-2">
           <aside id="<%= dom_id(team) %>">
             <% unless team.participants.size == 6 %>
-              <%= link_to 'Join Team', new_team_path, class: 'btn btn-primary btn-sm' %>
-              <% end %>
+              <%= link_to 'Join Team', join_team_path(team), method: :patch, remote: true,
+                           data: { disable_with: "Joining..."}, class: 'btn btn-primary' %>
+            <% end %>
           </aside>
         </div>
     </section>
   </div>
   <% end %>
 
-</div>
+</div><!-- end container -->
