@@ -14,9 +14,13 @@
         </div>
         <div class="col-md-2">
           <aside id="<%= dom_id(team) %>">
-            <% unless team.participants.size == 6 %>
+            <% unless team.participants.size == 6 || team.participants.include?(current_user.username)%>
               <%= link_to 'Join Team', join_team_path(team), method: :patch, remote: true,
                            data: { disable_with: "Joining..."}, class: 'btn btn-primary join' %>
+            <% end %>
+            <% if team.participants.include?(current_user.username) %>
+              <%= link_to 'Leave Team', leave_team_path(team), method: :delete, remote: true,
+                           data: { disable_with: 'Leaving...'}, class: 'btn btn-danger leave' %>
             <% end %>
           </aside>
         </div>
