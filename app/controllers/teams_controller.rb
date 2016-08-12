@@ -10,6 +10,7 @@ class TeamsController < ApplicationController
     unless @team.participants.include?(current_user.username) || @participants.flatten.include?(current_user.username)
       @team.participants_will_change!
       @team.update(participants: @team.participants.push(current_user.username))
+      format.js
     end
   end
 

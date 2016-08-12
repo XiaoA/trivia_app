@@ -29,4 +29,12 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'Join Team Button Removed When User Joins Team' do
+    sign_in @user
+    get teams_path
+    patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+    @team_one.reload
+    assert_select 'a', 0
+  end
 end
