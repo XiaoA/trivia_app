@@ -6,8 +6,10 @@ class TeamsController < ApplicationController
 
   def join
     @team = Team.find(params[:id])
-    @team.participants_will_change!
-    @team.update(participants: @team.participants.push(current_user.username))
+    unless @team.participants.include?(current_user.username)
+      @team.participants_will_change!
+      @team.update(participants: @team.participants.push(current_user.username))
+    end
   end
 
   private

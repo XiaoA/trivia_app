@@ -19,4 +19,18 @@ class JoinTeamTest < ActionDispatch::IntegrationTest
    @team_one.reload
    assert_equal participants += 1, @team_one.participants.count
  end
+
+ test 'User May Only Join Team Once' do
+   sign_in @user
+   get teams_path
+   patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+   @team_one.reload
+   get teams_path
+   assert_difference("@team_one.participants.count", 0) do
+     assert_select "aside#team_#{@team_one.id}" do
+       patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+       @team_one.reload
+     end
+   end
+ end
 end
