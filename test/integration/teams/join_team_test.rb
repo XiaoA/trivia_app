@@ -6,6 +6,7 @@ class JoinTeamTest < ActionDispatch::IntegrationTest
     @team_one = Team.create!(team_name: 'Test', participants: ['fred'])
     @team_two = Team.create!(team_name: '123', participants: ['kazoo', 'bam bam',
                          'pebbles', 'wilma', 'betty', 'barney'])
+    @team_three = Team.create!(team_name: 'Magic Number', participants: ['De La Soul'])
     @user = User.create!(username: 'test_user', email: 'test_user@example.com', password: 'password')
  end
 
@@ -31,6 +32,18 @@ class JoinTeamTest < ActionDispatch::IntegrationTest
        patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
        @team_one.reload
      end
+   end
+ end
+
+ test 'User May Only Join One Team' do
+   sign_in @user
+   get teams_path
+   patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+   @team_one.reload
+   get teams_path
+   assert_difference("@team_three.participants.count", 0) do
+     patch join_team_path(@team_three.id), params: { team: {participants: @user.username } }, xhr: true
+     @team_three.reload
    end
  end
 end
