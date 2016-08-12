@@ -19,4 +19,5 @@
 # Ignore Spring files.
 /spring/*.pid
 
+# Ignore automatically-generated Ruby version file.
 /.ruby-version
