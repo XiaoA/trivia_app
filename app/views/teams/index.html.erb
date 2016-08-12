@@ -1,12 +1,25 @@
-<h1>Temp Page For Teams</h1>
-<div id="team-listings">
-  <section id="teams">
-    <% @teams.each do |team|%>
-      <%= team.team_name %>: <br>
-      <%= team.participants.join(' ') %> <br>
-      <div id=<%= dom_id(team) %>>
-        <%= link_to 'Join Team', new_team_path %> <br>
-      </div>
-    <% end %>
-  </section>
-</div>
+<div class="container">
+  <div class="jumbotron">
+    <h1>Join a Team</h1>
+  </div>
+
+  <% @teams.each do |team| %>
+  <div class="row">
+    <section id="team-listings">
+        <div class="col-md-10">
+          <%= team.team_name %> <br>
+          <%= team.participants.join(' ') %>
+        </div>
+        <div class="col-md-2">
+          <aside id="<%= dom_id(team) %>">
+            <% unless team.participants.size == 6 %>
+              <%= link_to 'Join Team', join_team_path(team), method: :patch, remote: true,
+                           data: { disable_with: "Joining..."}, class: 'btn btn-primary' %>
+            <% end %>
+          </aside>
+        </div>
+    </section>
+  </div>
+  <% end %>
+
+</div><!-- end container -->
