@@ -1,0 +1,8 @@
+$(document).ready(function(){
+  var user = "<%= j @current_user.username %>";
+  var team = "<%= j @team.id.to_s %>";
+  $('#team-members_team_' + team).text(function (i, txt) {
+    return txt.replace(user, '');
+  });
+  $('.leave').hide();
+});

@@ -1,0 +1,7 @@
+$(document).ready(function(){
+  var user = "<%= j @current_user.username %>";
+  var team = "<%= j @team.id.to_s %>";
+  $('#team-members_team_' + team).append(user);
+  $('.join').hide();
+  $('.leave').show();
+});

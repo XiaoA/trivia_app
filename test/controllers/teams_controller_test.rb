@@ -20,4 +20,21 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'maximum 6 participants per team' do
+    sign_in @user
+    get teams_path
+    assert_difference("@team_two.participants.count", 0) do
+      assert_select "aside#team_#{@team_two.id}" do
+       patch join_team_path(@team_two.id), params: { team: {participants: @user.username } }, xhr: true
+      end
+    end
+  end
+
+  test 'Join Team Button Removed When User Joins Team' do
+    sign_in @user
+    get teams_path
+    patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+    @team_one.reload
+    assert_select 'a', 0
+  end
 end

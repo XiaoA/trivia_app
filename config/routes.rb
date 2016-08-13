@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :teams do
     member do
       patch :join
+      delete :leave
     end
   end
   devise_for :users
