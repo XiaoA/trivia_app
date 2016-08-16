@@ -4,6 +4,16 @@ class TeamsController < ApplicationController
     @teams = Team.all
   end
 
+  def create
+    @team = Team.new(team_params)
+    respond_to do |format|
+      if @team.save
+        format.html { redirect_to teams_path }
+        format.json { render json: @resource }
+      end
+    end
+  end
+
   def join
     @team = Team.find(params[:id])
     @participants = Team.todays_teams.todays_participants
@@ -30,6 +40,6 @@ class TeamsController < ApplicationController
 
   private
   def team_params
-    params.require(:team).permit(:team_name, :participants)
+    params.require(:team).permit(:team_name, participants: [])
   end
 end
