@@ -46,4 +46,14 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
       post '/teams', params: { team: { team_name: 'Lil Rascals', participants: [@user.username] } }
     end
   end
+
+  test 'User May Create Only One Team' do
+    sign_in @user
+    get new_team_path
+    post '/teams', params: { team: { team_name: 'Lil Rascals', participants: [@user.username] } }
+    assert_difference('Team.count', 0) do
+      post '/teams', params: { team: { team_name: 'A-Team', participants: [@user.username] } }
+      assert_equal flash[:notice], "#{@user.username} has already created a team."
+    end
+  end
 end

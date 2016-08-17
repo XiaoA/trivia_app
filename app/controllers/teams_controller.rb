@@ -6,10 +6,15 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @participants = Team.todays_teams.todays_participants
     respond_to do |format|
-      if @team.save
+      unless @participants.flatten.include?(current_user.username)
+        @team.save
         format.html { redirect_to teams_path }
         format.json { render json: @resource }
+      else
+        flash[:notice] = "#{current_user.username} has already created a team."
+        redirect_to teams_path
       end
     end
   end
