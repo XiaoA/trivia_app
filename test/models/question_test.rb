@@ -2,7 +2,7 @@ require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase
   def setup 
-    @question = Question.new(category: "history", question: "In what year did World War 2 End?", answer: "1945", points: 1)
+    @question = Question.new(category: "history", question: "In what year did World War 2 End?", points: 1)
   end
 
   test "valid question" do
@@ -16,11 +16,6 @@ class QuestionTest < ActiveSupport::TestCase
 
   test "empty questions are invalid" do
     @question.question = nil
-    assert_not @question.valid?
-  end
-
-  test "questions without an answer are invalid" do
-    @question.answer = nil
     assert_not @question.valid?
   end
 

@@ -1,3 +1,3 @@
 class Question < ApplicationRecord
-  validates :category, :question, :answer, :points, presence: true
+  validates :category, :question, :points, presence: true
 end
