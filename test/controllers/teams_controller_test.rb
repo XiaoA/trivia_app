@@ -42,6 +42,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   test 'Create A Team' do
     sign_in @user
     get new_team_path
+    assert_response :success
     assert_difference('Team.count', 1) do
       post '/teams', params: { team: { team_name: 'Lil Rascals', participants: [@user.username] } }
     end
@@ -50,9 +51,17 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   test 'User May Create Only One Team' do
     sign_in @user
     get new_team_path
+    assert_response :success
     post '/teams', params: { team: { team_name: 'Lil Rascals', participants: [@user.username] } }
+    assert_redirected_to @teams
+    follow_redirect!
+    assert_equal flash[:notice], 'New team created.'
     assert_difference('Team.count', 0) do
+      get new_team_path
+      assert_response :success
       post '/teams', params: { team: { team_name: 'A-Team', participants: [@user.username] } }
+      assert_redirected_to @teams
+      follow_redirect!
       assert_equal flash[:notice], "#{@user.username} has already created a team."
     end
   end

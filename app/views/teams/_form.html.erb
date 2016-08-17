@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <%= form_for @team do |f| %>
+      <%= render "shared/errors", object: f.object %>
+      <p>
+        <%= f.label :team_name, placeholder: 'Choose a Team Name...' %>
+        <%= f.text_field :team_name, class: 'form-control' %>
+      </p>
+      <p>
+        <%= f.submit 'Add Team', class: 'btn btn-primary btn-lg' %>
+      </p>
+      <% end %>
+    </div>
+  </div>
+</div>
