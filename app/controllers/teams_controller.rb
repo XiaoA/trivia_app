@@ -1,7 +1,29 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @teams = Team.all
+    @teams = Team.todays_teams
+  end
+
+  def new
+    @team = Team.new
+  end
+
+  def create
+    @team = Team.new(team_params)
+    @participants = Team.todays_teams.todays_participants
+    respond_to do |format|
+      unless @participants.flatten.include?(current_user.username)
+        @team.participants.push(current_user.username)
+        if @team.save
+          flash[:notice] = 'New team created.'
+          format.html { redirect_to teams_path }
+          format.json { render json: @team }
+        end
+      else
+        flash[:notice] = "#{current_user.username} has already created a team."
+        format.html { redirect_to teams_path }
+      end
+    end
   end
 
   def join
@@ -30,6 +52,6 @@ class TeamsController < ApplicationController
 
   private
   def team_params
-    params.require(:team).permit(:team_name, :participants)
+    params.require(:team).permit(:team_name, participants: [])
   end
 end

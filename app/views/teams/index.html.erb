@@ -2,30 +2,33 @@
   <div class="jumbotron">
     <h1>Join a Team</h1>
   </div>
-
-  <% @teams.each do |team| %>
-  <div class="row">
-    <section id="team-listings">
-        <div class="col-md-10">
-          <%= team.team_name %> <br>
-          <section id="team-members_<%= dom_id(team) %>">
-            <%= team.participants.join(' ') %>
-          </section>
-        </div>
-        <div class="col-md-2">
-          <aside id="<%= dom_id(team) %>">
-            <% unless team.participants.size == 6 || team.participants.include?(current_user.username)%>
-              <%= link_to 'Join Team', join_team_path(team), method: :patch, remote: true,
-                           data: { disable_with: "Joining..."}, class: 'btn btn-primary join' %>
-            <% end %>
-            <% if team.participants.include?(current_user.username) %>
-              <%= link_to 'Leave Team', leave_team_path(team), method: :delete, remote: true,
-                           data: { disable_with: 'Leaving...'}, class: 'btn btn-danger leave' %>
-            <% end %>
-          </aside>
-        </div>
-    </section>
-  </div>
+  <% if @teams.empty? %>
+    <h1>Start A Team</h1>
+  <% else %>
+    <% @teams.each do |team| %>
+      <div class="row">
+        <section id="team-listings">
+            <div class="col-md-10">
+              <%= team.team_name %> <br>
+              <section id="team-members_<%= dom_id(team) %>">
+                <%= team.participants.join(' ') %>
+              </section>
+            </div>
+            <div class="col-md-2">
+              <aside id="<%= dom_id(team) %>">
+                <% unless team.participants.size == 6 || team.participants.include?(current_user.username)%>
+                  <%= link_to 'Join Team', join_team_path(team), method: :patch, remote: true,
+                               data: { disable_with: "Joining..."}, class: 'btn btn-primary join' %>
+                <% end %>
+                <% if team.participants.include?(current_user.username) %>
+                  <%= link_to 'Leave Team', leave_team_path(team), method: :delete, remote: true,
+                               data: { disable_with: 'Leaving...'}, class: 'btn btn-danger leave' %>
+                <% end %>
+              </aside>
+            </div>
+        </section>
+      </div>
+    <% end %>
   <% end %>
-
+<%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
 </div><!-- end container -->

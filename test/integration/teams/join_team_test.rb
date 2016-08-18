@@ -15,7 +15,7 @@ class JoinTeamTest < ActionDispatch::IntegrationTest
    get teams_path
    participants = @team_one.participants.count
    assert_select "aside#team_#{@team_one.id}" do
-    patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+    patch join_team_path(@team_one.id), params: { team: { participants: @user.username } }, xhr: true
    end
    @team_one.reload
    assert_equal participants += 1, @team_one.participants.count
@@ -24,12 +24,12 @@ class JoinTeamTest < ActionDispatch::IntegrationTest
  test 'User May Only Join Team Once' do
    sign_in @user
    get teams_path
-   patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+   patch join_team_path(@team_one.id), params: { team: { participants: @user.username } }, xhr: true
    @team_one.reload
    get teams_path
    assert_difference("@team_one.participants.count", 0) do
      assert_select "aside#team_#{@team_one.id}" do
-       patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+       patch join_team_path(@team_one.id), params: { team: { participants: @user.username } }, xhr: true
        @team_one.reload
      end
    end
@@ -38,11 +38,11 @@ class JoinTeamTest < ActionDispatch::IntegrationTest
  test 'User May Only Join One Team' do
    sign_in @user
    get teams_path
-   patch join_team_path(@team_one.id), params: { team: {participants: @user.username } }, xhr: true
+   patch join_team_path(@team_one.id), params: { team: { participants: @user.username } }, xhr: true
    @team_one.reload
    get teams_path
    assert_difference("@team_three.participants.count", 0) do
-     patch join_team_path(@team_three.id), params: { team: {participants: @user.username } }, xhr: true
+     patch join_team_path(@team_three.id), params: { team: { participants: @user.username } }, xhr: true
      @team_three.reload
    end
  end
