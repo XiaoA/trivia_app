@@ -21,3 +21,4 @@
 
 # Ignore automatically-generated Ruby version file.
 /.ruby-version
+*.DS_Store
