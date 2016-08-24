@@ -1,1 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+single_member:
+  team_name: 'Test'
+  participants: ['fred']
+
+max_players:
+  team_name: 'Max'
+  participants: ['kazoo', 'bam bam', 'pebbles', 'wilma', 'betty', 'barney']
