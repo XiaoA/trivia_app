@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AnswerTest < ActiveSupport::TestCase
   def setup
-    @answer = Answer.new(answer: "1945", correct?: "True")
+    @answer = Answer.new(answer: "1945", correct: true)
   end
 
   test "valid answer" do
@@ -10,12 +10,12 @@ class AnswerTest < ActiveSupport::TestCase
   end
 
   test "blank answers are invalid" do
-    @answer = Answer.new(answer: " ", correct?: "False")
+    @answer = Answer.new(answer: " ", correct: false)
     assert_not @answer.valid?
   end
 
   test "answers must be either true or false" do
-    @answer = Answer.new(answer: "1945", correct?: nil)
+    @answer = Answer.new(answer: "1945", correct: nil)
     assert_not @answer.valid?
   end
 end
