@@ -13,7 +13,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.2'
 gem 'pundit', '~> 1.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
-
+gem 'rubocop', '~> 0.42.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri

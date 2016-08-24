@@ -15,3 +15,23 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+// *** FORM *** //
+form {
+   .field {
+     @extend .form-group;
+     input[type='email'], input[type='password'], input[type='text'] {
+       @extend .form-control;
+     }
+   }
+   .actions {
+     input {
+       @extend .btn;
+       @extend .btn-default;
+       @extend .btn-lg;
+     }
+     input[name='commit']{
+       @extend .btn-primary;
+     }
+   }
+ }
