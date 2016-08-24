@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase
-  def setup 
+  def setup
     @question = Question.new(category: "history", question: "In what year did World War 2 End?", points: 1)
   end
 
