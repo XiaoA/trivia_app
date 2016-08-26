@@ -3,11 +3,10 @@ require 'test_helper'
 class JoinTeamTest < ActionDispatch::IntegrationTest
 
   def setup
-    @team_one = Team.create!(team_name: 'Test', participants: ['fred'])
-    @team_two = Team.create!(team_name: '123', participants: ['kazoo', 'bam bam',
-                         'pebbles', 'wilma', 'betty', 'barney'])
-    @team_three = Team.create!(team_name: 'Magic Number', participants: ['De La Soul'])
-    @user = User.create!(username: 'test_user', email: 'test_user@example.com', password: 'password')
+    @team_one = teams(:single_member)
+    @team_two = teams(:max_players)
+    @team_three = teams(:third_team)
+    @user = users(:yml_user)
  end
 
  test 'User Joins Team' do
